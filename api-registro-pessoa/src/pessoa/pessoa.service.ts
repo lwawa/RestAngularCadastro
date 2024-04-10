@@ -1,5 +1,6 @@
-import { Injectable, NotFoundException, BadRequestException  } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { Pessoa } from './pessoa.model';
+import { Endereco } from '../endereco/endereco.model';
 import { validate } from 'class-validator';
 
 @Injectable()
@@ -21,7 +22,6 @@ export class PessoaService {
   async createPessoa(pessoaData: Pessoa): Promise<Pessoa> {
     const novaPessoa = { id: (this.pessoas.length + 1).toString(), ...pessoaData };
 
-    // Validar os dados da pessoa
     const errors = await validate(novaPessoa);
     if (errors.length > 0) {
       throw new BadRequestException(errors);
@@ -31,13 +31,31 @@ export class PessoaService {
     return novaPessoa;
   }
 
-  updatePessoa(id: string, pessoaData: Pessoa): Pessoa {
+  updatePessoa(id: string, pessoaData: Partial<Pessoa>): Pessoa {
     const pessoaIndex = this.pessoas.findIndex(p => p.id === id);
     if (pessoaIndex === -1) {
       throw new NotFoundException('Pessoa não encontrada.');
     }
-    this.pessoas[pessoaIndex] = { ...this.pessoas[pessoaIndex], ...pessoaData };
-    return this.pessoas[pessoaIndex];
+    const pessoaAtualizada = { ...this.pessoas[pessoaIndex], ...pessoaData };
+    this.pessoas[pessoaIndex] = pessoaAtualizada;
+    return pessoaAtualizada;
+  }
+
+  updateEnderecoPessoa(id: string, enderecoIndex: number, enderecoData: Partial<Endereco>): Pessoa {
+    const pessoaIndex = this.pessoas.findIndex(p => p.id === id);
+    if (pessoaIndex === -1) {
+      throw new NotFoundException('Pessoa não encontrada.');
+    }
+
+    const pessoa = this.pessoas[pessoaIndex];
+    if (!pessoa.enderecos || enderecoIndex >= pessoa.enderecos.length || enderecoIndex < 0) {
+      throw new NotFoundException('Endereço não encontrado.');
+    }
+
+    const enderecoAtualizado = { ...pessoa.enderecos[enderecoIndex], ...enderecoData };
+    pessoa.enderecos[enderecoIndex] = enderecoAtualizado;
+
+    return pessoa;
   }
 
   deletePessoa(id: string): Pessoa {
