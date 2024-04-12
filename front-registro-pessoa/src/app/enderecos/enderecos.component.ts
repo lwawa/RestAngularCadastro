@@ -32,4 +32,17 @@ export class EnderecosComponent implements OnInit {
       }
     );
   }
+
+  deleteEndereco(id: string) {
+    if (confirm('Tem certeza de que deseja excluir esta pessoa?')) {
+      this.pessoaService.deletePessoa(id).subscribe(
+        () => {
+          console.log('Endereco excluído com sucesso.');
+        },
+        error => {
+          console.log('Erro ao excluir pessoa:', error);
+        }
+      );
+    }
+  }
 }

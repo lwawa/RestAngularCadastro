@@ -27,6 +27,6 @@ import { PessoasComponent } from './pessoas/pessoas.component';
     AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, PessoasComponent, EnderecosComponent]
 })
 export class AppModule { }

@@ -7,11 +7,11 @@ import { PessoasComponent } from './pessoas/pessoas.component';
 const routes: Routes = [
   { path: '', component: PessoasComponent },
   { path: 'enderecos/:pessoaId', component: EnderecosComponent },
-  { path: 'teste', component: PessoasComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }
