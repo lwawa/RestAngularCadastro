@@ -9,16 +9,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 import { EnderecosComponent } from './enderecos/enderecos.component';
 import { PessoasComponent } from './pessoas/pessoas.component';
 import { CadastroPessoaComponent } from './cadastro-pessoa/cadastro-pessoa.component';
+import { ModalDetalhesPessoaComponent } from './modal-detalhes-pessoa/modal-detalhes-pessoa.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EnderecosComponent,
     PessoasComponent,
-    CadastroPessoaComponent
+    CadastroPessoaComponent,
+    ModalDetalhesPessoaComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +31,8 @@ import { CadastroPessoaComponent } from './cadastro-pessoa/cadastro-pessoa.compo
     MatButtonModule,
     MatIconModule,
     AppRoutingModule,
-    FormsModule 
+    FormsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent, PessoasComponent, EnderecosComponent]
