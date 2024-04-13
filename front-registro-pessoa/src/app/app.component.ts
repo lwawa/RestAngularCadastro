@@ -8,7 +8,7 @@ import { Pessoa } from './models/pessoa.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  
+    title = 'Pessoas API';
 
 }
 

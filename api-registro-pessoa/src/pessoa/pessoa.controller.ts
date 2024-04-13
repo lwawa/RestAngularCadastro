@@ -23,22 +23,33 @@ export class PessoaController {
   }
 
   @Put(':id')
-  updatePessoa(@Param('id') id: string, @Body() pessoaData: Partial<Pessoa>): Pessoa {
-    return this.pessoaService.updatePessoa(id, pessoaData);
-  }
-
-  @Patch(':id/endereco/:enderecoIndex')
-  updateEnderecoPessoa(
+  async updatePessoa(
     @Param('id') id: string,
-    @Param('enderecoIndex') enderecoIndex: string,
-    @Body() enderecoData: Partial<Endereco>
-  ): Pessoa {
-    const parsedEnderecoIndex = parseInt(enderecoIndex, 10);
-    return this.pessoaService.updateEnderecoPessoa(id, parsedEnderecoIndex, enderecoData);
+    @Body() pessoaData: Partial<Pessoa>
+  ): Promise<Pessoa> {
+    return this.pessoaService.updatePessoa(id, pessoaData);
   }
 
   @Delete(':id')
   deletePessoa(@Param('id') id: string): Pessoa {
     return this.pessoaService.deletePessoa(id);
+  }
+
+  @Patch(':id/endereco/:enderecoIndex')
+  async updateEnderecoPessoa(
+    @Param('id') id: string,
+    @Param('enderecoIndex') enderecoIndex: string,
+    @Body() enderecoData: Partial<Endereco>
+  ): Promise<Pessoa> {
+    const parsedEnderecoIndex = parseInt(enderecoIndex, 10);
+    return this.pessoaService.updateEnderecoPessoa(id, parsedEnderecoIndex, enderecoData);
+  }
+
+  @Patch(':id/add-endereco')
+  async addEnderecoToPessoa(
+    @Param('id') id: string,
+    @Body() novoEndereco: Endereco
+  ): Promise<Pessoa> {
+    return this.pessoaService.addEnderecoToPessoa(id, novoEndereco);
   }
 }

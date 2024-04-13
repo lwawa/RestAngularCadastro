@@ -19,7 +19,7 @@ export class ModalDetalhesPessoaComponent implements OnInit {
 
   calcularIdade(dataNascimento: Date): number {
     const hoje = new Date();
-    const nascimento = new Date(dataNascimento);
+    const nascimento = new Date(dataNascimento + "T00:00:00");
     let idade = hoje.getFullYear() - nascimento.getFullYear();
     const mesAtual = hoje.getMonth() + 1;
     const mesNascimento = nascimento.getMonth() + 1;
@@ -33,7 +33,10 @@ export class ModalDetalhesPessoaComponent implements OnInit {
 
   isAniversario(dataNascimento: Date): boolean {
     const hoje = new Date();
-    const nascimento = new Date (dataNascimento);
+    const nascimento = new Date (dataNascimento + "T00:00:00");
+    console.log("hoje:",hoje)
+    console.log("nascimento:",nascimento)
+    console.log("nascimento2:", dataNascimento)
     return hoje.getMonth() === nascimento.getMonth() && hoje.getDate() === nascimento.getDate();
   }
 

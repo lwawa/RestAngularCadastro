@@ -31,17 +31,35 @@ export class PessoaService {
     return novaPessoa;
   }
 
-  updatePessoa(id: string, pessoaData: Partial<Pessoa>): Pessoa {
+  async updatePessoa(id: string, pessoaData: Partial<Pessoa>): Promise<Pessoa> {
     const pessoaIndex = this.pessoas.findIndex(p => p.id === id);
     if (pessoaIndex === -1) {
       throw new NotFoundException('Pessoa não encontrada.');
     }
+
     const pessoaAtualizada = { ...this.pessoas[pessoaIndex], ...pessoaData };
+    
+    const errors = await validate(pessoaAtualizada);
+    if (errors.length > 0) {
+      throw new BadRequestException(errors);
+    }
+
     this.pessoas[pessoaIndex] = pessoaAtualizada;
+
     return pessoaAtualizada;
   }
 
-  updateEnderecoPessoa(id: string, enderecoIndex: number, enderecoData: Partial<Endereco>): Pessoa {
+
+  deletePessoa(id: string): Pessoa {
+    const pessoaIndex = this.pessoas.findIndex(p => p.id === id);
+    if (pessoaIndex === -1) {
+      throw new NotFoundException('Pessoa não encontrada.');
+    }
+    const pessoaExcluida = this.pessoas.splice(pessoaIndex, 1)[0];
+    return pessoaExcluida;
+  }
+
+  async updateEnderecoPessoa(id: string, enderecoIndex: number, enderecoData: Partial<Endereco>): Promise<Pessoa> {
     const pessoaIndex = this.pessoas.findIndex(p => p.id === id);
     if (pessoaIndex === -1) {
       throw new NotFoundException('Pessoa não encontrada.');
@@ -53,17 +71,28 @@ export class PessoaService {
     }
 
     const enderecoAtualizado = { ...pessoa.enderecos[enderecoIndex], ...enderecoData };
+
+    const errors = await validate(enderecoAtualizado);
+    if (errors.length > 0) {
+      throw new BadRequestException(errors);
+    }
+
     pessoa.enderecos[enderecoIndex] = enderecoAtualizado;
 
     return pessoa;
   }
 
-  deletePessoa(id: string): Pessoa {
-    const pessoaIndex = this.pessoas.findIndex(p => p.id === id);
-    if (pessoaIndex === -1) {
-      throw new NotFoundException('Pessoa não encontrada.');
+  async addEnderecoToPessoa(pessoaId: string, novoEndereco: Endereco): Promise<Pessoa> {
+    const pessoa = this.getPessoaById(pessoaId);
+
+    const errors = await validate(novoEndereco);
+    if (errors.length > 0) {
+      throw new BadRequestException(errors);
     }
-    const pessoaExcluida = this.pessoas.splice(pessoaIndex, 1)[0];
-    return pessoaExcluida;
+
+    pessoa.enderecos.push(novoEndereco);
+
+    return pessoa;
   }
+
 }

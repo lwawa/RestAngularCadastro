@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsDateString, IsIn, ValidateNested, ArrayNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsString, IsDateString, IsIn, ValidateNested } from 'class-validator';
 import { Type } from 'class-transformer';
 import { Endereco } from '../endereco/endereco.model';
 
