@@ -1,0 +1,31 @@
+<!-- cadastro-pessoa.component.html -->
+<form (submit)="onSubmit()">
+    <div>
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" [(ngModel)]="pessoa.nome" required>
+    </div>
+    <div>
+      <label for="sexo">Sexo:</label>
+      <select id="sexo" name="sexo" [(ngModel)]="pessoa.sexo" required>
+        <option value="Masculino">Masculino</option>
+        <option value="Feminino">Feminino</option>
+        <option value="Outro">Outro</option>
+      </select>
+    </div>
+    <div>
+      <label for="dataNascimento">Data de Nascimento:</label>
+      <input type="date" id="dataNascimento" name="dataNascimento" [(ngModel)]="pessoa.dataNascimento" required>
+    </div>
+    <div>
+      <label for="estadoCivil">Estado Civil:</label>
+      <select id="estadoCivil" name="estadoCivil" [(ngModel)]="pessoa.estadoCivil" required>
+        <option value="Solteiro(a)">Solteiro(a)</option>
+        <option value="Casado(a)">Casado(a)</option>
+        <option value="Separado(a)">Separado(a)</option>
+        <option value="Divorciado(a)">Divorciado(a)</option>
+        <option value="Viúvo(a)">Viúvo(a)</option>
+      </select>
+    </div>
+    <button type="submit">Salvar</button>
+  </form>
+  

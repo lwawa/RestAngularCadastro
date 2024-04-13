@@ -6,5 +6,5 @@ export class Pessoa {
   sexo: string = '';
   dataNascimento: Date = new Date;
   estadoCivil: string = '';
-  enderecos: Endereco[] = [];
+  enderecos?: Endereco[] = [];
 }

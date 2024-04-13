@@ -25,7 +25,11 @@ export class EnderecosComponent implements OnInit {
   carregarEnderecos(pessoaId: string): void {
     this.pessoaService.getPessoaById(pessoaId).subscribe(
       (pessoa) => {
-        this.enderecos = pessoa.enderecos;
+        if(pessoa.enderecos)
+          this.enderecos = pessoa.enderecos;
+        else{
+          this.enderecos = []
+        }
       },
       error => {
         console.log('Erro ao carregar endereços:', error);

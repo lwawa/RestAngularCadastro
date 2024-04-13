@@ -24,7 +24,6 @@ export class Pessoa {
   estadoCivil: string;
 
   @ValidateNested({ each: true })
-  @ArrayNotEmpty()
   @Type(() => Endereco)
   enderecos: Endereco[];
 }

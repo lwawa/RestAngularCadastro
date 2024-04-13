@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import  { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,12 +11,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { EnderecosComponent } from './enderecos/enderecos.component';
 import { PessoasComponent } from './pessoas/pessoas.component';
+import { CadastroPessoaComponent } from './cadastro-pessoa/cadastro-pessoa.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     EnderecosComponent,
-    PessoasComponent
+    PessoasComponent,
+    CadastroPessoaComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +27,8 @@ import { PessoasComponent } from './pessoas/pessoas.component';
     MatTableModule,
     MatButtonModule,
     MatIconModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule 
   ],
   providers: [],
   bootstrap: [AppComponent, PessoasComponent, EnderecosComponent]

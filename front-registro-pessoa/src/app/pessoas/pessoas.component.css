@@ -1,4 +1,4 @@
-table {
+  table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
@@ -17,4 +17,11 @@ table {
     white-space: nowrap;
   }
 
+  .centered-button {
+    width: 98%;
+    margin: 0 auto ;
+    display: block;
+    height: 50px;
+
+  }
   
