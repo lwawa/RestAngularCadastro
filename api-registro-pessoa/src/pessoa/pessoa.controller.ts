@@ -2,6 +2,7 @@ import { Controller, Get, Post, Put, Delete, Body, Param, Patch } from '@nestjs/
 import { Pessoa } from './pessoa.model';
 import { PessoaService } from './pessoa.service';
 import { Endereco } from 'src/endereco/endereco.model';
+import { get } from 'http';
 
 @Controller('pessoa')
 export class PessoaController {
@@ -35,14 +36,18 @@ export class PessoaController {
     return this.pessoaService.deletePessoa(id);
   }
 
-  @Patch(':id/endereco/:enderecoIndex')
+  @Get(':id/endereco/:enderecoId')
+  getEnderecoById(@Param('id') id: string, @Param('enderecoId') enderecoId: string): Endereco {
+    return this.pessoaService.getEnderecoById(id, enderecoId);
+  }
+
+  @Patch(':id/endereco/:enderecoId')
   async updateEnderecoPessoa(
     @Param('id') id: string,
-    @Param('enderecoIndex') enderecoIndex: string,
+    @Param('enderecoId') enderecoId: string,
     @Body() enderecoData: Partial<Endereco>
   ): Promise<Pessoa> {
-    const parsedEnderecoIndex = parseInt(enderecoIndex, 10);
-    return this.pessoaService.updateEnderecoPessoa(id, parsedEnderecoIndex, enderecoData);
+    return this.pessoaService.updateEnderecoPessoa(id, enderecoId, enderecoData);
   }
 
   @Patch(':id/add-endereco')
@@ -51,5 +56,10 @@ export class PessoaController {
     @Body() novoEndereco: Endereco
   ): Promise<Pessoa> {
     return this.pessoaService.addEnderecoToPessoa(id, novoEndereco);
+  }
+
+  @Delete(':id/endereco/:enderecoId')
+  deleteEnderecoFromPessoa(@Param('id') pessoaId: string, @Param('enderecoId') enderecoId: string): Promise<Pessoa> {
+    return this.pessoaService.deleteEnderecoFromPessoa(pessoaId, enderecoId);
   }
 }

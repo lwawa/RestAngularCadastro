@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Pessoa } from '../models/pessoa.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-modal-detalhes-pessoa',
@@ -12,7 +13,8 @@ export class ModalDetalhesPessoaComponent implements OnInit {
   
   constructor(
     public dialogRef: MatDialogRef<ModalDetalhesPessoaComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -34,13 +36,11 @@ export class ModalDetalhesPessoaComponent implements OnInit {
   isAniversario(dataNascimento: Date): boolean {
     const hoje = new Date();
     const nascimento = new Date (dataNascimento + "T00:00:00");
-    console.log("hoje:",hoje)
-    console.log("nascimento:",nascimento)
-    console.log("nascimento2:", dataNascimento)
     return hoje.getMonth() === nascimento.getMonth() && hoje.getDate() === nascimento.getDate();
   }
 
   fecharModal(): void {
     this.dialogRef.close();
+    this.router.navigate(['/']);
   }
 }

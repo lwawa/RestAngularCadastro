@@ -14,6 +14,7 @@ import { EnderecosComponent } from './enderecos/enderecos.component';
 import { PessoasComponent } from './pessoas/pessoas.component';
 import { CadastroPessoaComponent } from './cadastro-pessoa/cadastro-pessoa.component';
 import { ModalDetalhesPessoaComponent } from './modal-detalhes-pessoa/modal-detalhes-pessoa.component';
+import { CadstroEnderecoComponent } from './cadstro-endereco/cadstro-endereco.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ModalDetalhesPessoaComponent } from './modal-detalhes-pessoa/modal-deta
     EnderecosComponent,
     PessoasComponent,
     CadastroPessoaComponent,
-    ModalDetalhesPessoaComponent
+    ModalDetalhesPessoaComponent,
+    CadstroEnderecoComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,8 @@
 import { IsNotEmpty, IsString, IsPostalCode, IsOptional, IsNumber } from 'class-validator';
 
 export class Endereco {
+  id: string
+
   @IsNotEmpty()
   @IsString()
   endereco: string;

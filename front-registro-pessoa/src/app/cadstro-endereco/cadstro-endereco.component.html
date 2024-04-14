@@ -1,0 +1,32 @@
+<!-- cadastro-pessoa.component.html -->
+<form (submit)="onSubmit()">
+  <div>
+    <label for="endereco.endereco">Endereço:</label>
+    <input type="text" id="endereco.endereco" name="endereco.endereco" [(ngModel)]="endereco.endereco" required>
+  </div>
+  <div>
+    <label for="endereco.numero">Número:</label>
+    <input type="number" id="endereco.numero" name="endereco.numero" [(ngModel)]="endereco.numero" required>
+  </div>
+  <div>
+    <label for="endereco.complemento">Complemento:</label>
+    <input type="text" id="endereco.complemento" name="endereco.complemento" [(ngModel)]="endereco.complemento">
+  </div>
+  <div>
+    <label for="endereco.bairro">Bairro:</label>
+    <input type="text" id="endereco.bairro" name="endereco.bairro" [(ngModel)]="endereco.bairro" required>
+  </div>
+  <div>
+    <label for="endereco.cidade">Cidade:</label>
+    <input type="text" id="endereco.cidade" name="endereco.cidade" [(ngModel)]="endereco.cidade" required>
+  </div>
+  <div>
+    <label for="endereco.estado">Estado:</label>
+    <input type="text" id="endereco.estado" name="endereco.estado" [(ngModel)]="endereco.estado" required>
+  </div>
+  <div>
+    <label for="endereco.cep">CEP:</label>
+    <input type="text" id="endereco.cep" name="endereco.cep" [(ngModel)]="endereco.cep" required>
+  </div>
+  <button type="submit">Salvar</button>
+</form>

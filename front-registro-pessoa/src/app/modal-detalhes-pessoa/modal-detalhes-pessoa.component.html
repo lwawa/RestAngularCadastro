@@ -4,8 +4,8 @@
   <p>Nome: {{ data.pessoa.nome }}</p>
   <p>Sexo: {{ data.pessoa.sexo }}</p>
   <p>Data de Nascimento: {{ data.pessoa.dataNascimento | date }}</p>
-  <p>Idade: {{ calcularIdade( data.pessoa.dataNascimento) }}</p>
-  <p *ngIf="isAniversario(data.pessoa.dataNascimento)">Feliz Aniversário!</p>
+  <p>Idade: {{ calcularIdade( data.pessoa.dataNascimento ) }}</p>
+  <p *ngIf="isAniversario( data.pessoa.dataNascimento )">Feliz Aniversário!</p>
 </div>
 <div class="modal-buttons">
   <button mat-button (click)="fecharModal()">Fechar</button>

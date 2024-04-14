@@ -10,6 +10,7 @@ import { Endereco } from '../models/endereco.model';
 })
 export class EnderecosComponent implements OnInit {
   enderecos: Endereco[] = [];
+  pessoaId: string = ""
 
   constructor(private route: ActivatedRoute, private pessoaService: PessoaService) { }
 
@@ -17,6 +18,7 @@ export class EnderecosComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       const pessoaId = params.get('pessoaId');
       if (pessoaId) {
+        this.pessoaId = pessoaId;
         this.carregarEnderecos(pessoaId);
       }
     });
@@ -39,12 +41,13 @@ export class EnderecosComponent implements OnInit {
 
   deleteEndereco(id: string) {
     if (confirm('Tem certeza de que deseja excluir esta pessoa?')) {
-      this.pessoaService.deletePessoa(id).subscribe(
+      this.pessoaService.deleteEnderecoPessoa(this.pessoaId, id).subscribe(
         () => {
           console.log('Endereco excluído com sucesso.');
+          window.location.reload();
         },
         error => {
-          console.log('Erro ao excluir pessoa:', error);
+          console.log('Erro ao excluir endereco:', error);
         }
       );
     }

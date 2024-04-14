@@ -28,11 +28,25 @@ export class PessoaService {
     return this.http.put<Pessoa>(`${this.apiUrl}/${id}`, pessoaData);
   }
 
-  updateEnderecoPessoa(id: string, enderecoIndex: number, enderecoData: Partial<Endereco>): Observable<Pessoa> {
-    return this.http.patch<Pessoa>(`${this.apiUrl}/${id}/endereco/${enderecoIndex}`, enderecoData);
-  }
-
   deletePessoa(id: string): Observable<Pessoa> {
     return this.http.delete<Pessoa>(`${this.apiUrl}/${id}`);
+  }
+
+  addEnderecoPessoa(id: string, enderecoData: Partial<Endereco>): Observable<Pessoa> {
+    console.log(this.apiUrl,'/',id,'/add-endereco')
+    console.log(enderecoData)
+    return this.http.patch<Pessoa>(`${this.apiUrl}/${id}/add-endereco`, enderecoData);
+  }
+
+  getEnderecoPessoa(id: string, enderecoId: string): Observable<Endereco> {
+    return this.http.get<Endereco>(`${this.apiUrl}/${id}/endereco/${enderecoId}`);
+  }
+
+  updateEnderecoPessoa(id: string, enderecoId: string, enderecoData: Partial<Endereco>): Observable<Pessoa> {
+    return this.http.patch<Pessoa>(`${this.apiUrl}/${id}/endereco/${enderecoId}`, enderecoData);
+  }
+
+  deleteEnderecoPessoa(id: string, enderecoId: string): Observable<Pessoa> {
+    return this.http.delete<Pessoa>(`${this.apiUrl}/${id}/endereco/${enderecoId}`);
   }
 }
