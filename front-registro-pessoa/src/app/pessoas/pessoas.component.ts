@@ -16,7 +16,6 @@ export class PessoasComponent implements OnInit {
 
   ngOnInit() {
     this.getPessoas();
-    console.log('teste')
   }
 
   getPessoas() {
@@ -24,7 +23,6 @@ export class PessoasComponent implements OnInit {
       (data: Pessoa[]) => {
         this.pessoas = data;
         this.jsonData = JSON.stringify(data);
-        console.log(this.jsonData)
       },
       error => {
         console.log('Erro ao obter pessoas:', error);

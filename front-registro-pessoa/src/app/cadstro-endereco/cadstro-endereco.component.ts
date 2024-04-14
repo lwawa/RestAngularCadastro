@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Pessoa } from '../models/pessoa.model';
 import { PessoaService } from '../services/api.service';
 import { Endereco } from '../models/endereco.model';
 import { MatDialog } from '@angular/material/dialog';
-import { ModalDetalhesPessoaComponent } from '../modal-detalhes-pessoa/modal-detalhes-pessoa.component';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-cadstro-endereco',
@@ -18,7 +17,7 @@ export class CadstroEnderecoComponent implements OnInit {
   pessoaId: string = "";
   enderecoId: string = "";
 
-  constructor(private pessoaService: PessoaService, private Activeroute: ActivatedRoute, private router: Router , public dialog: MatDialog ) { }
+  constructor(private pessoaService: PessoaService, private Activeroute: ActivatedRoute, private router: Router , private http: HttpClient ) { }
 
   ngOnInit(): void {
     this.Activeroute.paramMap.subscribe(params => {
@@ -31,7 +30,6 @@ export class CadstroEnderecoComponent implements OnInit {
         this.isCriacao = false;
         this.pessoaId = pessoaId
       } else if(pessoaId){
-        console.log(pessoaId)
         this.isCriacao = true;
         this.pessoaId = pessoaId
       }else{
@@ -40,12 +38,42 @@ export class CadstroEnderecoComponent implements OnInit {
     });
   }
 
+  onCEPChange(cep: string): string {
+    if (this.endereco.cep.length === 8 || this.endereco.cep.length === 9 ) {
+      this.buscarEnderecoPorCEP(this.endereco.cep);
+    }else{
+      this.endereco.cidade = "";
+      this.endereco.estado = "";
+    }
+    cep = cep.replace(/\D/g, '');
+    cep = cep.replace(/^(\d{5})(\d{3})$/, '$1-$2');
+    
+    return cep;
+  }
+
+  buscarEnderecoPorCEP(cep: string): void {
+    const url = `https://viacep.com.br/ws/${cep}/json/`;
+    this.http.get<any>(url).subscribe(
+      (data) => {
+        if (!data.erro) {
+          this.endereco.cidade = data.localidade;
+          this.endereco.estado = data.uf;
+        }else{
+          this.endereco.cidade = '';
+          this.endereco.estado = ''
+        }
+      },
+      error => {
+        console.log('Erro ao buscar endereço por CEP:', error);
+      }
+    );
+  }
+
   carregarEnderecos(pessoaId: string, enderecoId: string): void {
     this.pessoaService.getEnderecoPessoa(pessoaId, enderecoId).subscribe(
       (endereco) => {
         if(endereco)
           this.endereco = endereco;
-          console.log(this.endereco)
       },
       error => {
         console.log('Erro ao carregar endereços:', error);
@@ -53,8 +81,10 @@ export class CadstroEnderecoComponent implements OnInit {
     );
   }
 
+  
+  
+
   onSubmit() {
-    console.log(this.endereco)
     if(this.isCriacao){
       this.pessoaService.addEnderecoPessoa(this.pessoaId, this.endereco).subscribe(() => {
         console.log('Endereço cadastrada com sucesso.');
@@ -71,4 +101,5 @@ export class CadstroEnderecoComponent implements OnInit {
       });
     }
   }
+  
 }

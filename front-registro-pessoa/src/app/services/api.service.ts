@@ -33,8 +33,6 @@ export class PessoaService {
   }
 
   addEnderecoPessoa(id: string, enderecoData: Partial<Endereco>): Observable<Pessoa> {
-    console.log(this.apiUrl,'/',id,'/add-endereco')
-    console.log(enderecoData)
     return this.http.patch<Pessoa>(`${this.apiUrl}/${id}/add-endereco`, enderecoData);
   }
 
