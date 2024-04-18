@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, Patch } from '@nestjs/common';
 import { Pessoa } from './pessoa.model';
 import { PessoaService } from './pessoa.service';
-import { Endereco } from 'src/endereco/endereco.model';
+import { Endereco } from '../endereco/endereco.model';
 import { get } from 'http';
 
 @Controller('pessoa')
