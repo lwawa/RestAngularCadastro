@@ -8,7 +8,7 @@ import { Endereco } from '../models/endereco.model';
   providedIn: 'root'
 })
 export class PessoaService {
-  private apiUrl = 'http://localhost:3000/pessoa';
+  private apiUrl = 'https://api-registro-pessoa.vercel.app/pessoa';
 
   constructor(private http: HttpClient) { }
 
